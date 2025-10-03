@@ -21,8 +21,14 @@ alias size='du -c -h -d 1 | sort -h'
 # ~/.zshrc快捷
 alias catsrc="cat ~/.zsrhc"
 alias visrc="vi ~/.zshrc"
-alias visrc2='vi ~/.oh-my-zsh/custom/plugins/$plugin_name/$plugin_name.plugin.zsh'
 alias sc="source ~/.zshrc"
+
+# 修改插件配置
+alias visrc2='vi ~/.oh-my-zsh/custom/plugins/$plugin_name/$plugin_name.plugin.zsh'
+# 提交插件配置
+alias savsrc2='cd ~/.oh-my-zsh/custom/plugins/$plugin_name && git add . && git commit -m "update $plugin_name" && git push && cd - && sc'
+# 更新插件配置
+alias upsrc2='cd ~/.oh-my-zsh/custom/plugins/$plugin_name && git pull && cd - && sc'
 
 # host快捷
 alias cathost="cat /etc/hosts"
