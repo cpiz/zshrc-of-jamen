@@ -23,6 +23,7 @@ alias catsrc="cat ~/.zsrhc"
 alias visrc="vi ~/.zshrc"
 alias sc="source ~/.zshrc"
 
+alias cdsrc2="cd ~/.oh-my-zsh/custom/plugins/$plugin_name"
 # 修改插件配置
 alias visrc2='vi ~/.oh-my-zsh/custom/plugins/$plugin_name/$plugin_name.plugin.zsh'
 # 提交插件配置
