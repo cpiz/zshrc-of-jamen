@@ -16,14 +16,18 @@ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.
 git clone https://github.com/cpiz/zshrc-of-jamen ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zshrc-of-jamen
 ```
 
-### 启用插件 
+### 启用插件
 
 编辑`~/.zshrc`，找到`plugins=(git)`，在括号中添加本插件名称`zshrc-of-jamen`，如下
+
 ```zsh
 # 插件配置
 plugins=(git zshrc-of-jamen)
+```
 
-# 或者
+或者
+
+```zsh
 plugins=(
     git
 
@@ -32,4 +36,8 @@ plugins=(
 )
 ```
 
-执行`source ~/.zshrc`让配置生效
+让配置生效
+
+```zsh
+source ~/.zshrc
+```
