@@ -13,7 +13,7 @@ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.
 ### 安装本插件
 
 ```bash
-git clone https://github.com/cpiz/zshrc-of-jamen ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zshrc-of-jamen
+git clone https://gitee.com/cpiz/zshrc-of-jamenzshrc-of-jamen.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zshrc-of-jamen
 ```
 
 ### 启用插件
