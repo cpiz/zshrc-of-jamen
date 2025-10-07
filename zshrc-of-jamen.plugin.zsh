@@ -16,6 +16,7 @@ alias l="ls -lrt"
 alias h="history"
 alias tf="tail -f"
 alias fd="find . -name"
+alias sea="find . -type f | xargs grep"
 alias size='du -c -h -d 1 | sort -h'
 
 # ~/.zshrc快捷
