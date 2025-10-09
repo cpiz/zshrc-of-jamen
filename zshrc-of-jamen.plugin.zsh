@@ -44,4 +44,3 @@ alias vissh="vi ~/.ssh/config"
 
 # 在当前目录启动一个简易HTTP服务器
 alias serve='python3 -m http.server 8000'
-
