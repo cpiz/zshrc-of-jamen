@@ -87,6 +87,46 @@ add_plugin_to_zshrc() {
     fi
 }
 
+# 处理 ZSH_THEME 配置
+handle_zsh_theme() {
+    if [ ! -f "$ZSHRC_FILE" ]; then
+        echo "  ⚠ .zshrc 文件不存在，跳过主题处理"
+        return 1
+    fi
+
+    echo "  正在检查 ZSH_THEME 配置..."
+
+    # 检查是否存在 ZSH_THEME 配置（支持各种格式）
+    local theme_line
+    theme_line=$(grep -n "^[[:space:]]*ZSH_THEME=" "$ZSHRC_FILE" 2>/dev/null)
+
+    if [ -z "$theme_line" ]; then
+        echo "  ✓ 未发现 ZSH_THEME 配置，无需处理"
+        return 0
+    fi
+
+    echo "  发现 ZSH_THEME 配置："
+    echo "$theme_line" | while IFS=: read -r line_num line_content; do
+        echo "    第${line_num}行: $line_content"
+    done
+
+    echo "  正在注释 ZSH_THEME 配置..."
+
+    # 使用 sed 注释所有 ZSH_THEME 行
+    if sed -i.tmp 's/^[[:space:]]*ZSH_THEME=/# ZSH_THEME=/g' "$ZSHRC_FILE"; then
+        # 删除临时文件
+        rm -f "$ZSHRC_FILE.tmp"
+        echo "  ✓ ZSH_THEME 配置已注释"
+        echo "  ℹ 原始主题配置已保留，如需恢复请手动删除注释符号"
+        return 0
+    else
+        echo "  ✗ 注释 ZSH_THEME 配置失败"
+        # 清理临时文件
+        rm -f "$ZSHRC_FILE.tmp"
+        return 1
+    fi
+}
+
 # 主安装流程
 main() {
     echo "开始安装 Oh My Zsh 插件..."
@@ -142,10 +182,27 @@ main() {
     done
 
     echo ""
+    echo "=== 配置主题 ==="
+
+    # 处理 ZSH_THEME 配置
+    local theme_failed=false
+    handle_zsh_theme
+    if [ $? -ne 0 ]; then
+        theme_failed=true
+    fi
+
+    echo ""
     echo "=== 安装完成 ==="
 
-    if [ ${#failed_plugins[@]} -eq 0 ] && [ ${#config_failed_plugins[@]} -eq 0 ]; then
+    # 计算总体结果
+    local total_success=true
+    if [ ${#failed_plugins[@]} -gt 0 ] || [ ${#config_failed_plugins[@]} -gt 0 ] || [ "$theme_failed" = true ]; then
+        total_success=false
+    fi
+
+    if [ "$total_success" = true ]; then
         echo "✓ 所有插件安装和配置完成！"
+        echo "✓ 主题配置处理完成！"
         echo ""
         echo "请新启动终端或运行以下命令以应用更改："
         echo "  source ~/.zshrc"
@@ -153,8 +210,9 @@ main() {
         echo "⚠ 安装过程中遇到一些问题："
         [ ${#failed_plugins[@]} -gt 0 ] && echo "  安装失败的插件: ${failed_plugins[*]}"
         [ ${#config_failed_plugins[@]} -gt 0 ] && echo "  配置失败的插件: ${config_failed_plugins[*]}"
+        [ "$theme_failed" = true ] && echo "  主题配置处理失败"
         echo ""
-        echo "请检查错误信息并手动处理失败的插件。"
+        echo "请检查错误信息并手动处理失败的项目。"
     fi
 }
 

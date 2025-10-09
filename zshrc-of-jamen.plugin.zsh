@@ -47,14 +47,16 @@ get_instance_name() {
 # 导出实例名称
 export INSTANCE_NAME=$(get_instance_name)
 
+
 # 设置命令行提示符，显示用户名和实例名称
+# 要在.zshrc中禁用oh-my-zsh的默认主题才能生效
 # 参考自默认主体~/.oh-my-zsh/themes/robbyrussell.zsh-theme
-# 绿色表示正常用户，红色表示root用户
-# %1{➜%} 显示一个箭头符号
-# %c 显示当前目录
-# $(git_prompt_info) 显示Git分支信息（如果在Git仓库中）
-# 例子：user@my-instance ➜ ~/project (main)
-PROMPT="%(?:%{$fg_bold[green]%}%n@$INSTANCE_NAME %{$fg_bold[green]%}%1{➜%} :%{$fg_bold[red]%}%1{➜%} ) %{$fg[cyan]%}%c%{$reset_color%} $(git_prompt_info)"
+PROMPT="%(?:%{$fg_bold[green]%}%n@$INSTANCE_NAME %1{➜%} :%{$fg_bold[red]%}%1{➜%} ) %{$fg[cyan]%}%c%{$reset_color%}"
+PROMPT+=' $(git_prompt_info)'
+ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[blue]%}git:(%{$fg[red]%}"
+ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%} "
+ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[blue]%}) %{$fg[yellow]%}%1{✗%}"
+ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg[blue]%})"
 
 # ls快捷
 alias lart="ls -lart"
