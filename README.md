@@ -45,5 +45,5 @@ source ~/.zshrc
 可用下面的脚本一键安装配置
 
 ```zsh
-sh -c "$(curl -fsSL https://gitee.com/cpiz/zshrc-of-jamen/raw/master/install.sh)"
+zsh -c "$(curl -fsSL https://gitee.com/cpiz/zshrc-of-jamen/raw/master/install.zsh)"
 ```
