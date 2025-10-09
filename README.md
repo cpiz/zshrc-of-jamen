@@ -46,4 +46,6 @@ source ~/.zshrc
 
 ```zsh
 zsh -c "$(curl -fsSL https://gitee.com/cpiz/zshrc-of-jamen/raw/master/install.zsh)"
+source $HOME/.zshrc
+echo "插件已启用"
 ```

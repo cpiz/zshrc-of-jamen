@@ -26,8 +26,4 @@ else
   sed -i $sed_cmd $HOME/.zshrc
 fi
 
-# 重新加载 .zshrc 文件
-echo "正在重新加载 .zshrc 文件..."
-source $HOME/.zshrc
-
-echo "$PLUGIN_NAME 插件安装和配置完成！"
+echo "$PLUGIN_NAME 插件安装和配置完成！请新启动终端或运行 'source ~/.zshrc' 以应用更改。"
