@@ -22,6 +22,7 @@ alias size='du -c -h -d 1 | sort -h'
 # ~/.zshrc快捷
 alias catsrc="cat ~/.zsrhc"
 alias visrc="vi ~/.zshrc"
+alias vimrc="vi ~/.vimrc"
 alias sc="source ~/.zshrc"
 
 alias cdsrc2="cd ~/.oh-my-zsh/custom/plugins/$plugin_name"
