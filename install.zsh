@@ -30,4 +30,4 @@ fi
 echo "正在重新加载 .zshrc 文件..."
 source $HOME/.zshrc
 
-echo "PLUGIN_NAME 插件安装和配置完成！"
+echo "$PLUGIN_NAME 插件安装和配置完成！"
