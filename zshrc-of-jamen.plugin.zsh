@@ -1,10 +1,52 @@
 # 将个人常用的zsh配置提取为一个公共插件，方便快速同步到多个Linux环境，统一维护
 # .oh-my-zsh/custom/plugins/zshrc-of-jamen/zshrc-of-jamen
 
-plugin_name="zshrc-of-jamen"
+PLUGIN_NAME="zshrc-of-jamen"
 
-# PROMPT前面增加主机名
-PROMPT="%F{242}%n@%m":%f$PROMPT
+# 函数：获取阿里云实例名称（优先从元数据接口获取，失败则用主机名）
+get_instance_name() {
+    # 实例名称请求地址（元数据地址）
+    local META_DATA_URL="http://100.100.100.200/latest/meta-data/instance/instance-name"
+
+    # 超时时间（单位：秒，0.5秒即500毫秒）
+    local TIMEOUT=0.1
+    
+    # 使用curl请求元数据：
+    # -s：静默模式（不输出进度条等冗余信息）
+    # -m $TIMEOUT：设置超时时间（秒）
+    # -f：请求失败（如HTTP 4xx/5xx）时返回非0状态码，便于判断
+    # -w "%{http_code}"：输出HTTP响应码（用于辅助判断请求是否成功）
+    # 捕获curl的输出（实例名称）和HTTP响应码
+    local curl_output
+    local http_code
+    curl_output=$(curl -s -m "$TIMEOUT" -f "$META_DATA_URL" -w "\n%{http_code}")
+    http_code=$(echo "$curl_output" | tail -1)  # 提取最后一行的HTTP响应码
+    local instance_name=$(echo "$curl_output" | head -1)  # 提取前面的实例名称内容
+
+    # 判断请求是否成功：
+    # 1. curl退出状态码为0（无超时、无网络错误）
+    # 2. HTTP响应码为200（接口正常返回数据）
+    # 3. 实例名称非空（排除接口返回空值的情况）
+    if [ $? -eq 0 ] && [ "$http_code" -eq 200 ] && [ -n "$instance_name" ]; then
+        echo "$instance_name"
+    else
+        # 备用实例名称（本机hostname）
+        BACKUP_INSTANCE_NAME=$(hostname)
+        # 分析失败原因（便于调试）
+        # if [ $? -eq 28 ]; then
+        #     echo "警告：元数据接口请求超时（超时时间：$TIMEOUT 秒），使用备用名称：$BACKUP_INSTANCE_NAME"
+        # elif [ "$http_code" -ne 200 ]; then
+        #     echo "警告：元数据接口返回异常（HTTP响应码：$http_code），使用备用名称：$BACKUP_INSTANCE_NAME"
+        # else
+        #     echo "警告：元数据接口返回空值，使用备用名称：$BACKUP_INSTANCE_NAME"
+        # fi
+        echo "$BACKUP_INSTANCE_NAME"
+    fi
+}
+
+# 设置命令行提示符，显示用户名和实例名称
+export INSTANCE_NAME=$(get_instance_name)
+PROMPT="%F{242}%n@${INSTANCE_NAME}":%f$PROMPT
 
 # ls快捷
 alias lart="ls -lart"
@@ -25,13 +67,13 @@ alias visrc="vi ~/.zshrc"
 alias vimrc="vi ~/.vimrc"
 alias sc="source ~/.zshrc"
 
-alias cdsrc2="cd ~/.oh-my-zsh/custom/plugins/$plugin_name"
+alias cdsrc2="cd ~/.oh-my-zsh/custom/plugins/$PLUGIN_NAME"
 # 修改插件配置
-alias visrc2='vi ~/.oh-my-zsh/custom/plugins/$plugin_name/$plugin_name.plugin.zsh'
+alias visrc2='vi ~/.oh-my-zsh/custom/plugins/$PLUGIN_NAME/$PLUGIN_NAME.plugin.zsh'
 # 提交插件配置
-alias savsrc2='cd ~/.oh-my-zsh/custom/plugins/$plugin_name && git add . && git commit -m "update $plugin_name" && git push && cd - && sc'
+alias savsrc2='cd ~/.oh-my-zsh/custom/plugins/$PLUGIN_NAME && git add . && git commit -m "update $PLUGIN_NAME" && git push && cd - && sc'
 # 更新插件配置
-alias upsrc2='cd ~/.oh-my-zsh/custom/plugins/$plugin_name && git pull && cd - && sc'
+alias upsrc2='cd ~/.oh-my-zsh/custom/plugins/$PLUGIN_NAME && git pull && cd - && sc'
 
 # host快捷
 alias cathost="cat /etc/hosts"
