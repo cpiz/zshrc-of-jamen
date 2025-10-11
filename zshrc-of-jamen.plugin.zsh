@@ -3,6 +3,11 @@
 
 PLUGIN_NAME="zshrc-of-jamen"
 
+# 设置系统默认编辑器为vi/vim
+# 推荐的设置，确保良好兼容性
+export EDITOR=vi
+export VISUAL=vi
+
 # 函数：获取阿里云实例名称（优先从元数据接口获取，失败则用主机名）
 get_instance_name() {
     # 实例名称请求地址（元数据地址）
