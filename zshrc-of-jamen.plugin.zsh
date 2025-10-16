@@ -73,7 +73,6 @@ alias l="ls -lrt"
 alias h="history"
 alias tf="tail -f"
 alias fd="find . -name"
-alias sea="find . -type d -name ".git" -prune -o -type f -print | xargs grep"
 alias size='du -c -h -d 1 | sort -h'
 
 # ~/.zshrc快捷
@@ -101,3 +100,15 @@ alias vissh="vi ~/.ssh/config"
 
 # 在当前目录启动一个简易HTTP服务器
 alias serve='python3 -m http.server 8000'
+
+# 快捷文本搜索函数
+sea() {
+  # 同时排除.git和node_modules目录，使用-print0确保特殊字符正确处理
+  find . \( -type d -name .git -o -type d -name node_modules \) -prune -o \
+  -type f -print0 |
+  # 使用--max-args=1限制每次传递一个文件给grep，避免参数过长
+  xargs -0 -n 1 grep --color=auto -- "$1" |
+  # 过滤掉长度超过500字符的行
+  awk 'length($0) <= 500'
+}
+
