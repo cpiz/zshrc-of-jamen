@@ -73,7 +73,7 @@ alias l="ls -lrt"
 alias h="history"
 alias tf="tail -f"
 alias fd="find . -name"
-alias sea="find . -type f | xargs grep"
+alias sea="find . -type d -name ".git" -prune -o -type f -print | xargs grep"
 alias size='du -c -h -d 1 | sort -h'
 
 # ~/.zshrc快捷
