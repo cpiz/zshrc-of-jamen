@@ -52,6 +52,12 @@ get_instance_name() {
 # 导出实例名称
 export INSTANCE_NAME=$(get_instance_name)
 
+# iTerm2 集成
+# 通过iterm2_set_user_var设置用户变量，支持在iTerm2的Badge中配置 \(user.INSTANCE_NAME)
+# 判断如果iterm2_set_user_var 存在，设置实例名称
+if command -v iterm2_set_user_var &> /dev/null; then
+    iterm2_set_user_var INSTANCE_NAME "$INSTANCE_NAME"
+fi
 
 # 设置命令行提示符，显示用户名和实例名称
 # 要在.zshrc中禁用oh-my-zsh的默认主题才能生效
