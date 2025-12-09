@@ -127,3 +127,29 @@ vi() {
         command vi "$@"
     fi
 }
+
+vitips() {
+    cat << 'EOF'
+"""""""""""""""
+" 常用Vim Tips
+"""""""""""""""
+" - 撤销u  重做ctrl+r
+" - 重复执行上次操作 .
+" - 移动到下个单词w 移动到词首b 移动到词尾e
+" - 跳转首行gg 跳转尾行G 跳转指定行<number>gg 跳转上次编辑ctro+o
+" - 选择模式v
+" - 复制选中y 复制当前词yw 复制当前行yy 粘贴p
+" - 括号配对 %
+" - 查找光标所在词 *
+" - 删除匹配行:g/pattern/d
+" - 删除不匹配行:v/pattern/d
+" - 删除重复行:g/^\(.*\)\n\1$/d
+" - 删除全文:%d 或者ggdG
+" - 排序后删除重复行:sort u
+" - 列选择模式ctrl+v
+" - 多行首添加ctrl+v I 输入内容后Esc
+" - 多行尾添加ctrl+v $ A 输入内容后Esc
+" - 重新获取sudo保存:w !sudo tee %
+
+EOF
+}
