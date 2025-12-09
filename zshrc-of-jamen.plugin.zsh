@@ -120,3 +120,10 @@ sea() {
   awk 'length($0) <= 500'
 }
 
+vi() {
+    if command -v vim >/dev/null 2>&1; then
+        vim "$@"
+    else
+        command vi "$@"
+    fi
+}
