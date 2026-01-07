@@ -122,6 +122,7 @@ sea() {
   awk 'length($0) <= 500'
 }
 
+unalias vi 2>/dev/null
 vi() {
     if command -v vim >/dev/null 2>&1; then
         vim "$@"
