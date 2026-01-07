@@ -80,6 +80,8 @@ alias h="history"
 alias tf="tail -f"
 alias fd="find . -name"
 alias size='du -c -h -d 1 | sort -h'
+alias k9='kill -9'
+alias suroot='sudo -s'
 
 # ~/.zshrc快捷
 alias catsrc="cat ~/.zsrhc"
