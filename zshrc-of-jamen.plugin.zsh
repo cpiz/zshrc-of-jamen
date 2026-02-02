@@ -84,7 +84,7 @@ alias k9='kill -9'
 alias suroot='sudo -s'
 
 # ~/.zshrc快捷
-alias catsrc="cat ~/.zsrhc"
+alias catsrc="cat ~/.zshrc"
 alias visrc="vi ~/.zshrc"
 alias vimrc="vi ~/.vimrc"
 alias sc="source ~/.zshrc"
