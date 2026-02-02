@@ -122,6 +122,30 @@ sea() {
   awk 'length($0) <= 500'
 }
 
+# 通用 Docker 进入工具
+dex() {
+  # 1. 自动获取当前 Compose 项目中第一个运行中的服务名
+  local SERVICE=$(docker compose ps --format json | grep '"State":"running"' | jq -r '.[0].Service' 2>/dev/null || \
+                  docker compose ps --services --filter "status=running" | head -n 1)
+
+  if [ -z "$SERVICE" ]; then
+    echo "❌ 错误: 当前目录下没有正在运行的 Docker Compose 服务。"
+    return 1
+  fi
+
+  echo "🚀 正在进入服务: $SERVICE ..."
+
+  # 2. 探测容器内支持的最高级 Shell (zsh > bash > sh)
+  local TARGET_SHELL=$(docker compose exec $SERVICE sh -c '
+    if command -v zsh >/dev/null 2>&1; then echo "zsh";
+    elif command -v bash >/dev/null 2>&1; then echo "bash";
+    else echo "sh"; fi
+  ')
+
+  # 3. 执行进入
+  docker compose exec -it $SERVICE $TARGET_SHELL
+}
+
 unalias vi 2>/dev/null
 vi() {
     if command -v vim >/dev/null 2>&1; then
