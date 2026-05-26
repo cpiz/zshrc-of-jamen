@@ -7,13 +7,13 @@
 ### 先一键安装`oh-my-zsh`
 
 ```bash
-sh -c "$(curl -fsSL https://gitee.com/mirrors/oh-my-zsh/raw/master/tools/install.sh)"
+sh -c "$(curl -fsSL https://github.com/oh-my-zsh/raw/master/tools/install.sh)"
 ```
 
 ### 安装本插件
 
 ```bash
-git clone https://gitee.com/cpiz/zshrc-of-jamen.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zshrc-of-jamen
+git clone https://github.com/cpiz/zshrc-of-jamen.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zshrc-of-jamen
 ```
 
 ### 启用插件
@@ -45,7 +45,7 @@ source ~/.zshrc
 可用下面的脚本一键安装配置
 
 ```zsh
-zsh -c "$(curl -fsSL https://gitee.com/cpiz/zshrc-of-jamen/raw/master/install.zsh)"
+zsh -c "$(curl -fsSL https://github.com/cpiz/zshrc-of-jamen/raw/master/install.zsh)"
 source ~/.zshrc
 echo "插件已启用"
 ```

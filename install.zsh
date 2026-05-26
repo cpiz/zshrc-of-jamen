@@ -2,9 +2,9 @@
 
 # 统一插件配置
 declare -A PLUGINS=(
-    ["zshrc-of-jamen"]="https://gitee.com/cpiz/zshrc-of-jamen.git"
-    ["zsh-syntax-highlighting"]="https://gitee.com/mirrors/zsh-syntax-highlighting.git"
-    ["zsh-autosuggestions"]="https://gitee.com/mirrors/zsh-autosuggestions.git"
+    ["zshrc-of-jamen"]="https://github.com/cpiz/zshrc-of-jamen.git"
+    ["zsh-syntax-highlighting"]="https://github.com/zsh-users/zsh-syntax-highlighting.git"
+    ["zsh-autosuggestions"]="https://github.com/zsh-users/zsh-autosuggestions.git"
 )
 
 # 需要在.zshrc中启用的插件列表（按顺序）
